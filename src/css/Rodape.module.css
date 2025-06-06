@@ -42,9 +42,10 @@
 }
 
 .logoIcon {
-  width: 28px; /* Reduzido o tamanho */
-  height: 28px;
-  color: var(--laranja-principal);
+  width: 40px;
+  height: 32px;
+  object-fit: contain;
+  margin-right: 8px;
 }
 
 .logoText {

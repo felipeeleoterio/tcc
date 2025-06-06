@@ -37,9 +37,10 @@
 }
 
 .Navbar_logoIcon__6Hfns {
-  width: 28px;
-  height: 28px;
-  color: var(--laranja-principal);
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  margin-right: 8px;
 }
 
 .Navbar_logoText__xGoK_ {
@@ -1075,6 +1076,349 @@
   }
 }
 
+/*!*********************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[7].use[3]!./src/css/PedidosEmAndamento.module.css ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************/
+.PedidosEmAndamento_pedidosContainer__El8SC {
+  width: 100%;
+  min-width: 540px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.PedidosEmAndamento_title__5Mmac {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--azul-escuro);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.PedidosEmAndamento_form__p6PM7 {
+  background-color: var(--branco);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+.PedidosEmAndamento_section__j_0dq {
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--cinza-claro);
+}
+
+.PedidosEmAndamento_section__j_0dq:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.PedidosEmAndamento_sectionTitle__8jxcW {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--azul-escuro);
+  margin-bottom: 15px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--azul-principal);
+}
+
+.PedidosEmAndamento_inputGroup__U_YcX {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+
+.PedidosEmAndamento_inputRow__b00tS {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-gap: 15px;
+  gap: 15px;
+  margin-bottom: 12px;
+}
+
+.PedidosEmAndamento_label__T8Jcl {
+  font-weight: 500;
+  color: var(--azul-escuro);
+  font-size: 13px;
+}
+
+.PedidosEmAndamento_input__p4alt,
+.PedidosEmAndamento_select__1EPxZ,
+.PedidosEmAndamento_textarea__ccomq {
+  padding: 8px 12px;
+  border: 1px solid var(--cinza-medio);
+  border-radius: 4px;
+  font-size: 13px;
+  transition: border-color 0.3s ease;
+  width: 100%;
+}
+
+.PedidosEmAndamento_input__p4alt:focus,
+.PedidosEmAndamento_select__1EPxZ:focus,
+.PedidosEmAndamento_textarea__ccomq:focus {
+  border-color: var(--azul-principal);
+  outline: none;
+}
+
+.PedidosEmAndamento_radioGroup__WUCEb {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 12px;
+}
+
+.PedidosEmAndamento_radioGroup__WUCEb label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--azul-escuro);
+  cursor: pointer;
+}
+
+.PedidosEmAndamento_checkboxGroup__29y2y {
+  margin-bottom: 12px;
+}
+
+.PedidosEmAndamento_checkboxLabel__HVr7E {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--azul-escuro);
+  cursor: pointer;
+}
+
+.PedidosEmAndamento_addressGrid__Ulkq2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-gap: 15px;
+  gap: 15px;
+}
+
+.PedidosEmAndamento_pedidoGrid__QXhdH {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-gap: 15px;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.PedidosEmAndamento_quantityGroup__ELkEX {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  width: 100%;
+}
+
+.PedidosEmAndamento_addButton__G8YcW {
+  background-color: var(--azul-principal);
+  color: var(--branco);
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  z-index: 2;
+}
+
+.PedidosEmAndamento_addButton__G8YcW:hover {
+  background-color: var(--laranja-principal);
+}
+
+.PedidosEmAndamento_tableContainer__sy6HS {
+  overflow-x: auto;
+  margin-top: 15px;
+}
+
+.PedidosEmAndamento_table__xb7VL {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--branco);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+}
+
+.PedidosEmAndamento_table__xb7VL th {
+  background-color: var(--azul-escuro);
+  color: var(--branco);
+  padding: 10px 8px;
+  text-align: left; /* padrão */
+  font-weight: 600;
+  font-size: 13px;
+}
+
+/* Centralizar o cabeçalho das colunas Valor e Status Pedido */
+.PedidosEmAndamento_table__xb7VL th:nth-child(5),
+.PedidosEmAndamento_table__xb7VL th:nth-child(6) {
+  text-align: center;
+}
+
+.PedidosEmAndamento_table__xb7VL td {
+  padding: 8px;
+  border-bottom: 1px solid var(--cinza-claro);
+  font-size: 12px;
+}
+
+/* Centralizar as células Valor e Status Pedido */
+.PedidosEmAndamento_table__xb7VL td:nth-child(5),
+.PedidosEmAndamento_table__xb7VL td:nth-child(6) {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.PedidosEmAndamento_table__xb7VL tr:hover {
+  background-color: var(--cinza-claro);
+}
+
+.PedidosEmAndamento_selectSmall__rMCzQ {
+  padding: 4px 6px;
+  border: 1px solid var(--cinza-medio);
+  border-radius: 3px;
+  font-size: 11px;
+}
+
+.PedidosEmAndamento_actionButtons__i3dmP {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
+}
+
+.PedidosEmAndamento_addItemButton__jRo39 {
+  background-color: var(--verde);
+  color: var(--branco);
+  padding: 4px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+}
+
+.PedidosEmAndamento_addItemButton__jRo39:hover {
+  background-color: #218838;
+}
+
+.PedidosEmAndamento_removeButton__t1s28 {
+  background-color: #dc3545;
+  color: var(--branco);
+  padding: 4px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+}
+
+.PedidosEmAndamento_removeButton__t1s28:hover {
+  background-color: #c82333;
+}
+
+.PedidosEmAndamento_buttonGroup__UPdYo {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.PedidosEmAndamento_saveButton__9P_gS,
+.PedidosEmAndamento_editButton__h0Yoc,
+.PedidosEmAndamento_saveAsButton__N2hKP {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.PedidosEmAndamento_saveButton__9P_gS {
+  background-color: var(--azul-principal);
+  color: var(--branco);
+}
+
+.PedidosEmAndamento_saveButton__9P_gS:hover {
+  background-color: var(--laranja-principal);
+}
+
+.PedidosEmAndamento_editButton__h0Yoc {
+  background-color: var(--roxo);
+  color: var(--branco);
+}
+
+.PedidosEmAndamento_editButton__h0Yoc:hover {
+  background-color: #7041d9;
+}
+
+.PedidosEmAndamento_saveAsButton__N2hKP {
+  background-color: var(--cinza-escuro);
+  color: var(--branco);
+}
+
+.PedidosEmAndamento_saveAsButton__N2hKP:hover {
+  background-color: #555555;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .PedidosEmAndamento_pedidosContainer__El8SC {
+    min-width: 540px;
+    overflow-x: auto;
+  }
+
+  .PedidosEmAndamento_form__p6PM7 {
+    padding: 15px;
+  }
+
+  .PedidosEmAndamento_inputRow__b00tS {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .PedidosEmAndamento_addressGrid__Ulkq2,
+  .PedidosEmAndamento_pedidoGrid__QXhdH {
+    grid-template-columns: 1fr;
+  }
+
+  .PedidosEmAndamento_buttonGroup__UPdYo {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .PedidosEmAndamento_saveButton__9P_gS,
+  .PedidosEmAndamento_editButton__h0Yoc,
+  .PedidosEmAndamento_saveAsButton__N2hKP {
+    width: 100%;
+    max-width: 250px;
+  }
+
+  .PedidosEmAndamento_actionButtons__i3dmP {
+    flex-direction: column;
+    gap: 2px;
+  }
+}
+
+
 /*!********************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[7].use[3]!./src/css/Sobre.module.css ***!
   \********************************************************************************************************************************************************************************************************************************************************************/
@@ -2013,9 +2357,10 @@
 }
 
 .Rodape_logoIcon__YdB3X {
-  width: 28px; /* Reduzido o tamanho */
-  height: 28px;
-  color: var(--laranja-principal);
+  width: 40px;
+  height: 32px;
+  object-fit: contain;
+  margin-right: 8px;
 }
 
 .Rodape_logoText__6w_Rd {
