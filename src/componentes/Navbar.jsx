@@ -85,19 +85,13 @@ export default function Navbar({ onNavigate, isExpanded, setIsExpanded }) {
   ]
 
   const handleMenuClick = (menuId, component) => {
-    switch (menuId) {
-      case "dashboard":
-      case "produto":
-        setActiveMenu("")
-        onNavigate(component)
-        break
-      default:
-        if (activeMenu === menuId) {
-          setActiveMenu("")
-        } else {
-          setActiveMenu(menuId)
-        }
-        break
+    if (component) {
+      // Menu simples, sem submenu: navega direto e fecha submenu ativo
+      setActiveMenu("")
+      onNavigate(component)
+    } else {
+      // Menu com submenu: alterna abrir/fechar submenu
+      setActiveMenu(activeMenu === menuId ? "" : menuId)
     }
   }
 
@@ -138,7 +132,7 @@ export default function Navbar({ onNavigate, isExpanded, setIsExpanded }) {
       onMouseLeave={handleMouseLeave}
     >
       <div className={styles.logo} onClick={handleLogoClick}>
-        <ShoppingCart className={styles.logoIcon} />
+        <img src="/Logojapedidos.png" alt="Logo Já Pedidos" className={styles.logoIcon} />
         {isExpanded && <span className={styles.logoText}>JÁ Pedidos</span>}
       </div>
 

@@ -4,11 +4,13 @@ import Dashboard from "./Dashboard"
 import Login from "./Login"
 import Cadastro from "./Cadastro"
 import Pedidos from "./Pedidos"
+import PedidosEmAndamento from "./PedidosEmAndamento"
 import Sobre from "./Sobre"
 import Config from "./Config"
 import Error from "./Error"
 import EstoqueCadastrar from "./EstoqueCadastrar"
 import styles from "../css/Main.module.css"
+
 
 export default function Main({ currentComponent, isNavbarExpanded, onNavigate }) {
   const renderComponent = () => {
@@ -21,6 +23,7 @@ export default function Main({ currentComponent, isNavbarExpanded, onNavigate })
         return <Cadastro onNavigate={onNavigate} />
       case "PedidosAguardando":
       case "PedidosAndamento":
+        return <PedidosEmAndamento onNavigate={onNavigate} />
       case "PedidosConcluidos":
       case "PedidosCancelados":
         return <Pedidos type={currentComponent} />

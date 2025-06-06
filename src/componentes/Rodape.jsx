@@ -11,7 +11,7 @@ export default function Rodape({ isNavbarExpanded = false }) {
           {/* Coluna 1 - Logo e Redes Sociais */}
           <div className={styles.column}>
             <div className={styles.logo}>
-              <ShoppingCart className={styles.logoIcon} />
+              <img src="/Logojapedidos.png" alt="Logo Já Pedidos" className={styles.logoIcon} />
               <h3 className={styles.logoText}>JÁ Pedidos</h3>
             </div>
             <div className={styles.socialLinks}>
