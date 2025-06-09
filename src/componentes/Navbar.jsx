@@ -35,6 +35,7 @@ export default function Navbar({ onNavigate, isExpanded, setIsExpanded }) {
         { id: "login", title: "Login", component: "Login" },
         { id: "novo", title: "Novo", component: "Cadastro" },
         { id: "recuperar", title: "Recuperar acesso", component: "RecuperarAcesso" },
+        { id: "buscar", title: "Buscar ", component: "Buscar"}
       ],
     },
     {
@@ -42,10 +43,9 @@ export default function Navbar({ onNavigate, isExpanded, setIsExpanded }) {
       title: "Pedidos",
       icon: ShoppingCart,
       submenus: [
-        { id: "aguardando", title: "Aguardando pagamento", component: "PedidosAguardando" },
         { id: "andamento", title: "Em andamento", component: "PedidosAndamento" },
-        { id: "concluidos", title: "Concluídos", component: "PedidosConcluidos" },
-        { id: "cancelados", title: "Cancelados", component: "PedidosCancelados" },
+        { id: "concluidos", title: "Criar", component: "Pedidos" },
+        { id: "BuscarPedidos", title: "Buscar", component: "BuscaPedidos"},
       ],
     },
     {
@@ -60,12 +60,7 @@ export default function Navbar({ onNavigate, isExpanded, setIsExpanded }) {
       icon: Building,
       submenus: [{ id: "quemsomos", title: "Quem somos", component: "Sobre" }],
     },
-    {
-      id: "carrinho",
-      title: "Carrinho",
-      icon: ShoppingBag,
-      submenus: [{ id: "concluir", title: "Concluir", component: "CarrinhoConcluir" }],
-    },
+    
     {
       id: "configuracoes",
       title: "Configurações",

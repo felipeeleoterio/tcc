@@ -612,6 +612,174 @@
   }
 }
 
+/*!***************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[7].use[3]!./src/css/BuscaCliente.module.css ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************/
+.BuscaCliente_pedidosContainer__4MdVk {
+  width: 100%;
+  min-width: 540px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.BuscaCliente_title__KfKEf {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--azul-escuro);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.BuscaCliente_form__gv4J5 {
+  background-color: var(--branco);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+.BuscaCliente_inputGroup__PjN6H {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 20px;
+}
+
+.BuscaCliente_label__Z_EwT {
+  font-weight: 500;
+  color: var(--azul-escuro);
+  font-size: 13px;
+}
+
+.BuscaCliente_input__lqMbW {
+  padding: 8px 12px;
+  border: 1px solid var(--cinza-medio);
+  border-radius: 4px;
+  font-size: 13px;
+  transition: border-color 0.3s ease;
+  width: 100%;
+}
+
+.BuscaCliente_input__lqMbW:focus {
+  border-color: var(--azul-principal);
+  outline: none;
+}
+
+.BuscaCliente_tableContainer__udpul {
+  overflow-x: auto;
+  margin-top: 15px;
+}
+
+.BuscaCliente_table___Qx8j {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--branco);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+}
+
+.BuscaCliente_table___Qx8j th {
+  background-color: var(--azul-escuro);
+  color: var(--branco);
+  padding: 10px 8px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.BuscaCliente_table___Qx8j th:nth-child(5),
+.BuscaCliente_table___Qx8j th:nth-child(6) {
+  text-align: center;
+}
+
+.BuscaCliente_table___Qx8j td {
+  padding: 8px;
+  border-bottom: 1px solid var(--cinza-claro);
+  font-size: 12px;
+}
+
+.BuscaCliente_table___Qx8j td:nth-child(5),
+.BuscaCliente_table___Qx8j td:nth-child(6) {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.BuscaCliente_table___Qx8j tr:hover {
+  background-color: var(--cinza-claro);
+}
+
+.BuscaCliente_actionButtons__gMt_9 {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
+}
+
+.BuscaCliente_editButton__dPsM6 {
+  background-color: var(--roxo);
+  color: var(--branco);
+  padding: 4px 8px;
+  border: none;
+  border-radius: 3px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.BuscaCliente_editButton__dPsM6:hover {
+  background-color: #7041d9;
+}
+
+.BuscaCliente_removeButton__seNjq {
+  background-color: #dc3545;
+  color: var(--branco);
+  padding: 4px 8px;
+  border: none;
+  border-radius: 3px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.BuscaCliente_removeButton__seNjq:hover {
+  background-color: #c82333;
+}
+
+.BuscaCliente_buttonGroup__nGWpF {
+  display: flex;
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.BuscaCliente_saveButton__0nIg1 {
+  background-color: var(--azul-escuro);
+  color: var(--branco);
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.BuscaCliente_saveButton__0nIg1:hover {
+  background-color: #003366; /* tom mais escuro para hover */
+}
+
+.BuscaCliente_disabledButton__pw420 {
+  background-color: var(--cinza-medio);
+  color: #666;
+  cursor: not-allowed;
+}
+
+.BuscaCliente_statusText__gFKRa {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--azul-escuro);
+}
+
 /*!***********************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[7].use[3]!./src/css/Cadastro.module.css ***!
   \***********************************************************************************************************************************************************************************************************************************************************************/
@@ -1130,11 +1298,12 @@
 
 .PedidosEmAndamento_inputRow__b00tS {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1fr;
   grid-gap: 15px;
   gap: 15px;
   margin-bottom: 12px;
 }
+
 
 .PedidosEmAndamento_label__T8Jcl {
   font-weight: 500;
@@ -1418,6 +1587,106 @@
   }
 }
 
+.PedidosEmAndamento_paginationGroup__Sn84d {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.PedidosEmAndamento_paginationButton__MjFWM {
+  background-color: var(--azul-escuro);
+  color: var(--branco);
+  padding: 6px 14px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.PedidosEmAndamento_paginationButton__MjFWM:hover {
+  background-color: #003366;
+}
+
+.PedidosEmAndamento_paginationButton__MjFWM:disabled {
+  background-color: var(--cinza-medio);
+  color: #666;
+  cursor: not-allowed;
+}
+
+.PedidosEmAndamento_paginationText__yUtjq {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--azul-escuro);
+}
+
+.PedidosEmAndamento_paginationGroup__Sn84d {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.PedidosEmAndamento_paginationButton__MjFWM {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 0.5rem 1.2rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.PedidosEmAndamento_paginationButton__MjFWM:disabled {
+  background-color: #a5d6a7;
+  cursor: not-allowed;
+}
+
+.PedidosEmAndamento_paginationText__yUtjq {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.PedidosEmAndamento_paginationGroup__Sn84d {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.PedidosEmAndamento_paginationButton__MjFWM {
+  background-color: var(--azul-escuro);
+  color: var(--branco);
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.PedidosEmAndamento_paginationButton__MjFWM:hover {
+  background-color: #003366;
+}
+
+.PedidosEmAndamento_paginationButton__MjFWM:disabled {
+  background-color: var(--cinza-medio);
+  color: #666;
+  cursor: not-allowed;
+}
+
+.PedidosEmAndamento_paginationText__yUtjq {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--azul-escuro);
+}
 
 /*!********************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[7].use[3]!./src/css/Sobre.module.css ***!

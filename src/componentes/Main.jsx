@@ -2,9 +2,11 @@
 
 import Dashboard from "./Dashboard"
 import Login from "./Login"
+import Buscar from "./BuscaCliente"
 import Cadastro from "./Cadastro"
 import Pedidos from "./Pedidos"
 import PedidosEmAndamento from "./PedidosEmAndamento"
+import BuscaPedidos from "./BuscaPedidos"
 import Sobre from "./Sobre"
 import Config from "./Config"
 import Error from "./Error"
@@ -21,11 +23,15 @@ export default function Main({ currentComponent, isNavbarExpanded, onNavigate })
         return <Login onNavigate={onNavigate} />
       case "Cadastro":
         return <Cadastro onNavigate={onNavigate} />
-      case "PedidosAguardando":
+        case "Buscar":
+          return <Buscar onNavigate={onNavigate}/>
+      case "Criar":
+        return <Pedidos type={currentComponent} />
       case "PedidosAndamento":
         return <PedidosEmAndamento onNavigate={onNavigate} />
-      case "PedidosConcluidos":
-      case "PedidosCancelados":
+      case "BuscaPedidos":
+        return <BuscaPedidos onNavigate={onNavigate} />
+      case "Pedidos":
         return <Pedidos type={currentComponent} />
       case "EstoqueCadastrar":
         return <EstoqueCadastrar />

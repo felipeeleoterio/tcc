@@ -187,7 +187,7 @@ export default function Pedidos({ type }) {
 
   return (
     <div className={styles.pedidosContainer}>
-      <h1 className={styles.title}>Pedido</h1>
+      <h1 className={styles.title}> Criar Pedido</h1>
 
       <form onSubmit={handleSubmit} className={styles.form}>
         {/* Dados do Cliente */}
