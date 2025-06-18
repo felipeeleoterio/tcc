@@ -2,6 +2,7 @@
 
 import Dashboard from "./Dashboard";
 import Cadastro from "./Cadastro";
+import RecuperarSenha from "./RecuperarSenha";
 import Pedidos from "./Pedidos";
 import BuscaPedido from "./BuscaPedido";
 import Error from "./Error";
@@ -15,6 +16,8 @@ export default function Main({ currentComponent, isNavbarExpanded, onNavigate })
         return <Dashboard />;
       case "Cadastro":
         return <Cadastro onNavigate={onNavigate} />;
+      case "RecuperarSenha":
+        return <RecuperarSenha />;
       case "Criar":
         return <Pedidos type={currentComponent} />;
       case "BuscaPedido":

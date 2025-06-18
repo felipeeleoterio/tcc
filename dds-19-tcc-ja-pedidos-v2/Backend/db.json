@@ -35,89 +35,95 @@
   ],
   "pedidos": [
     {
-      "id": "1",
-      "cliente": "Felipe",
-      "valor": 150,
-      "dataEntrega": "2025-06-20"
-    },
-    {
-      "id": "a180",
+      "id": "b9a2",
       "cliente": "neymar jr",
       "valor": 0.25,
-      "dataEntrega": "2025-06-10",
-      "statusPedido": "Agendado para Hoje"
+      "dataEntrega": "10/06/2025 15:09",
+      "statusPedido": "Agendado para Hoje",
+      "telefone": "21231312312",
+      "observacoes": "sdadasdadasd",
+      "protocolo": "JA1750262870726-2024"
     },
     {
-      "id": "9f5f",
-      "cliente": "sdasdasd",
+      "id": "d3ad",
+      "cliente": "neymar jr",
       "valor": 0.25,
-      "dataEntrega": "10/06/2025 05:19",
-      "statusPedido": "EM ANDAMENTO",
-      "telefone": "21231312312"
+      "dataEntrega": "10/06/2025 18:03",
+      "statusPedido": "Agendado para Hoje",
+      "telefone": "21231312312",
+      "observacoes": "sadasdasd",
+      "protocolo": "JA1750266012459-2024",
+      "itens": [
+        {
+          "id": 1750266025495,
+          "codigo": "COD001",
+          "produto": "Bolinha de Queijo",
+          "unidadeMedida": "Unit",
+          "valorUnitario": 0.25,
+          "quantidade": 1,
+          "desconto": "0%",
+          "valorTotal": 0.25
+        }
+      ]
     },
     {
-      "id": "cbf2",
-      "cliente": "sdasdasd",
+      "id": "0949",
+      "cliente": "neymar jr",
       "valor": 0.25,
-      "dataEntrega": "10/06/2025 06:20",
-      "statusPedido": "HOJE",
-      "telefone": "21231312312"
-    },
-    {
-      "id": "fcef",
-      "cliente": "",
-      "valor": 25,
-      "dataEntrega": "",
-      "statusPedido": "AGUARDANDO PAGAMENTO",
-      "telefone": ""
-    },
-    {
-      "id": "ef3b",
-      "cliente": "Cristiano",
-      "valor": 0.25,
-      "dataEntrega": "02/06/2025 05:24",
-      "statusPedido": "Aguardando Pagamento",
-      "telefone": "21231312312"
-    },
-    {
-      "id": "243b",
-      "cliente": "messi",
-      "valor": 0.25,
-      "dataEntrega": "02/06/2025 06:45",
+      "dataEntrega": "10/06/2025 16:06",
       "statusPedido": "Pendente",
-      "telefone": "21231312312"
+      "telefone": "21231312312",
+      "observacoes": "sdadaswda",
+      "protocolo": "JA1750266026974-2024",
+      "itens": [
+        {
+          "id": 1750266284653,
+          "codigo": "COD001",
+          "produto": "Bolinha de Queijo",
+          "unidadeMedida": "Unit",
+          "valorUnitario": 0.25,
+          "quantidade": 1,
+          "desconto": "0%",
+          "valorTotal": 0.25
+        }
+      ]
     },
     {
-      "id": "948a",
-      "cliente": "arias",
+      "id": "764b",
+      "cliente": "neymar jr",
+      "protocolo": "JA1750268495590-2024",
       "valor": 0.25,
-      "dataEntrega": "02/06/2025 05:45",
+      "dataPedido": "10/06/2025 17:44",
+      "dataEntrega": "10/06/2025 17:44",
       "statusPedido": "Agendado para Hoje",
-      "telefone": "21231312312"
-    },
-    {
-      "id": "3e6a",
-      "cliente": "german",
-      "valor": 0.25,
-      "dataEntrega": "02/06/2025 06:56",
-      "statusPedido": "Agendado para Hoje",
-      "telefone": "21231312312"
-    },
-    {
-      "id": "d6a4",
-      "cliente": "pato",
-      "valor": 0.25,
-      "dataEntrega": "02/06/2025 10:09",
-      "statusPedido": "Finalizado",
-      "telefone": "21231312312"
-    },
-    {
-      "id": "0089",
-      "cliente": "pato",
-      "valor": 0.25,
-      "dataEntrega": "02/06/2025 08:08",
-      "statusPedido": "Em Andamento",
-      "telefone": "21231312312"
+      "observacoes": "fasadasd",
+      "itens": [
+        {
+          "id": 1750268510307,
+          "codigo": "COD001",
+          "produto": "Coxinha de frango",
+          "unidadeMedida": "Unit",
+          "valorUnitario": 0.25,
+          "quantidade": 1,
+          "desconto": "0%",
+          "valorTotal": 0.25
+        }
+      ],
+      "documento": "1234567890",
+      "tipoDocumento": "cpf",
+      "telefone": "21-23131-2312",
+      "tipoTelefone": "movel",
+      "isWhatsApp": false,
+      "email": "neymar@gmail.com",
+      "endereco": {
+        "tipoLogradouro": "afasdas",
+        "numero": "33000",
+        "complemento": "123",
+        "bairro": "123",
+        "cidade": "Vila Velha",
+        "estado": "ES"
+      },
+      "valorFrete": "5,00"
     }
   ]
 }

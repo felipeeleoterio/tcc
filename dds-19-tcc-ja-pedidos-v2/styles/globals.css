@@ -1,3 +1,5 @@
+/* src/styles/variables.css */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,14 +8,39 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-}
-
+/* Adicionando suas variáveis de cor personalizadas na camada base */
 @layer base {
   :root {
+    /* Cores principais da sua paleta, agora como variáveis CSS globais */
+    --azul-escuro: #2c3e50;
+    --azul-principal: #3498db;
+    --laranja-principal: #e67e22; /* Usado no aguardando/aguardandoPagamento */
+    --roxo: #8e44ad;
+    --verde: #2ecc71; /* Geralmente para sucesso/concluído */
+    --cinza-claro: #ecf0f1;
+    --cinza-medio: #bdc3c7;
+    --cinza-escuro: #7f8c8d;
+    --branco: #ffffff;
+    --vermelho-perigo: #e74c3c; /* Geralmente para cancelamento/erro */
+
+    /* Cores específicas dos seus Cards, transformadas em variáveis para consistência */
+    --card-status-amarelo: #ffc107; /* Para 'andamento' */
+    --card-status-verde: #28a745; /* Para 'concluido' e 'agendado' */
+    --card-status-vermelho: #dc3545; /* Para 'cancelado' */
+
+    /* Variáveis para o pop-up, mapeadas para sua paleta */
+    --modal-background: var(--branco);
+    --modal-text-primary: var(--azul-escuro);
+    --modal-border-color: var(--cinza-claro);
+
+    /* Cores dos botões do modal */
+    --modal-confirm-bg: var(--verde);
+    --modal-confirm-hover-bg: #218838; /* Um verde ligeiramente mais escuro */
+    --modal-cancel-bg: var(--vermelho-perigo);
+    --modal-cancel-hover-bg: #c82333; /* Um vermelho ligeiramente mais escuro */
+    --modal-button-text: var(--branco);
+
+    /* --- Variáveis do Tailwind existentes --- */
     --background: 0 0% 100%;
     --foreground: 0 0% 3.9%;
     --card: 0 0% 100%;
@@ -82,13 +109,19 @@ body {
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
-}
-
-@layer base {
   * {
     @apply border-border;
   }
   body {
+    /* Mantenha o background do Tailwind se quiser que ele controle o fundo principal */
+    /* Se quiser que o fundo padrão do seu tema seja o cinza-claro, use: */
+    /* background-color: var(--cinza-claro); */
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
   }
 }

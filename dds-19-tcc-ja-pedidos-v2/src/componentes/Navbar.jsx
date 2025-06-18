@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import {
   LayoutDashboard,
   Users,
@@ -16,6 +16,7 @@ import styles from "../css/Navbar.module.css";
 export default function Navbar({ onNavigate, isExpanded, setIsExpanded }) {
   const [activeMenu, setActiveMenu] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const leaveTimeoutRef = useRef(null);
 
   const menuItems = [
     {
@@ -30,7 +31,7 @@ export default function Navbar({ onNavigate, isExpanded, setIsExpanded }) {
       icon: Users,
       submenus: [
         { id: "novo", title: "Novo", component: "Cadastro" },
-        { id: "recuperar", title: "Recuperar acesso", component: "RecuperarAcesso" },
+        { id: "recuperar", title: "Recuperar Senha", component: "RecuperarSenha" },
       ],
     },
     {
@@ -38,7 +39,7 @@ export default function Navbar({ onNavigate, isExpanded, setIsExpanded }) {
       title: "Pedidos",
       icon: ShoppingCart,
       submenus: [
-        { id: "Buscar", title: "Buscar", component: "BuscaPedido" },
+        { id: "buscar", title: "Buscar", component: "BuscaPedido" },
         { id: "novo", title: "Novo", component: "Pedidos" },
       ],
     },
@@ -50,44 +51,54 @@ export default function Navbar({ onNavigate, isExpanded, setIsExpanded }) {
     },
   ];
 
-  const handleMenuClick = (menuId, component) => {
-    if (component) {
-      setActiveMenu("");
-      onNavigate(component);
+  const handleMenuClick = (item) => {
+    if (item.submenus) {
+      setActiveMenu((prev) => (prev === item.id ? "" : item.id));
+      if (searchTerm && activeMenu !== item.id) {
+        setSearchTerm("");
+      }
     } else {
-      setActiveMenu(activeMenu === menuId ? "" : menuId);
+      setActiveMenu("");
+      setSearchTerm("");
+      onNavigate(item.component);
     }
   };
 
   const handleSubmenuClick = (component) => {
-    onNavigate(component);
+    setSearchTerm("");
     setActiveMenu("");
+    onNavigate(component);
   };
 
-  const handleLogoClick = () => {
-    setIsExpanded(!isExpanded);
-  };
+  const handleLogoClick = () => setIsExpanded(!isExpanded);
 
   const handleMouseEnter = () => {
+    if (leaveTimeoutRef.current) {
+      clearTimeout(leaveTimeoutRef.current);
+      leaveTimeoutRef.current = null;
+    }
     setIsExpanded(true);
   };
 
   const handleMouseLeave = () => {
-    setIsExpanded(false);
-    setActiveMenu("");
+    leaveTimeoutRef.current = setTimeout(() => {
+      setIsExpanded(false);
+      // Opcional: Limpar o menu ativo e termo de busca ao retrair
+      // Isso garante que, ao expandir novamente, não haja um submenu aberto automaticamente.
+      // setActiveMenu("");
+      // setSearchTerm("");
+    }, 200);
   };
 
-  const handleSearch = () => {
-    if (searchTerm.trim()) {
-      onNavigate("SearchResults");
-    }
-  };
-
-  const handleKeyPress = (e) => {
-    if (e.key === "Enter") {
-      handleSearch();
-    }
-  };
+  const displayedMenuItems = searchTerm
+    ? menuItems.filter((item) => {
+        const titleMatch = item.title.toLowerCase().includes(searchTerm.toLowerCase());
+        const submenuMatch = item.submenus?.some((submenu) =>
+          submenu.title.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        return titleMatch || submenuMatch;
+      })
+    : menuItems;
 
   return (
     <nav
@@ -97,9 +108,11 @@ export default function Navbar({ onNavigate, isExpanded, setIsExpanded }) {
     >
       <div className={styles.logo} onClick={handleLogoClick}>
         <img src="/Logojapedidos.png" alt="Logo Já Pedidos" className={styles.logoIcon} />
+        {/* Renderize o texto do logo SOMENTE se o menu estiver expandido */}
         {isExpanded && <span className={styles.logoText}>JÁ Pedidos</span>}
       </div>
 
+      {/* Renderize a barra de pesquisa SOMENTE se o menu estiver expandido */}
       {isExpanded && (
         <div className={styles.searchContainer}>
           <div className={styles.searchInputWrapper}>
@@ -109,9 +122,8 @@ export default function Navbar({ onNavigate, isExpanded, setIsExpanded }) {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className={styles.searchInput}
-              onKeyDown={handleKeyPress}
             />
-            <button onClick={handleSearch} className={styles.searchButton}>
+            <button className={styles.searchButton}>
               <Search size={16} />
             </button>
           </div>
@@ -119,13 +131,14 @@ export default function Navbar({ onNavigate, isExpanded, setIsExpanded }) {
       )}
 
       <ul className={styles.menuList}>
-        {menuItems.map((item) => (
+        {displayedMenuItems.map((item) => (
           <li key={item.id} className={styles.menuItem}>
-            <div
+            <button
               className={`${styles.menuButton} ${activeMenu === item.id ? styles.active : ""}`}
-              onClick={() => handleMenuClick(item.id, item.component)}
+              onClick={() => handleMenuClick(item)}
             >
               <item.icon className={styles.menuIcon} />
+              {/* Renderize o texto do menu principal SOMENTE se o menu estiver expandido */}
               {isExpanded && (
                 <>
                   <span className={styles.menuText}>{item.title}</span>
@@ -136,17 +149,24 @@ export default function Navbar({ onNavigate, isExpanded, setIsExpanded }) {
                   )}
                 </>
               )}
-            </div>
-
+            </button>
+            {/* Renderize o submenu SOMENTE se o menu estiver expandido E o item estiver ativo */}
             {item.submenus && activeMenu === item.id && isExpanded && (
               <ul className={styles.submenuList}>
-                {item.submenus.map((submenu) => (
-                  <li key={submenu.id} className={styles.submenuItem}>
-                    <button className={styles.submenuButton} onClick={() => handleSubmenuClick(submenu.component)}>
-                      {submenu.title}
-                    </button>
-                  </li>
-                ))}
+                {item.submenus
+                  .filter((submenu) =>
+                    submenu.title.toLowerCase().includes(searchTerm.toLowerCase()) || searchTerm === ""
+                  )
+                  .map((submenu) => (
+                    <li key={submenu.id} className={styles.submenuItem}>
+                      <button
+                        className={styles.submenuButton}
+                        onClick={() => handleSubmenuClick(submenu.component)}
+                      >
+                        {submenu.title}
+                      </button>
+                    </li>
+                  ))}
               </ul>
             )}
           </li>

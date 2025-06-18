@@ -6,7 +6,6 @@ import {
   Clock,
   CheckCircle,
   XCircle,
-  CreditCard,
   CalendarCheck,
   DollarSign,
 } from "lucide-react"
@@ -62,6 +61,10 @@ export default function Cards({ pedido, status }) {
     e.stopPropagation()
   }
 
+  // Use dataPedido ou dataEntrega, se existir
+  const dataExibida = pedido.dataPedido || pedido.dataEntrega || "-";
+  const observacoesExibidas = pedido.observacoes || "-";
+
   return (
     <div
       className={`${styles.card} ${styles[status]} ${isExpanded ? styles.expanded : ""}`}
@@ -82,7 +85,7 @@ export default function Cards({ pedido, status }) {
         <h3 className={styles.clienteName}>{pedido.cliente}</h3>
         <p className={styles.protocolo}>Protocolo: {pedido.protocolo}</p>
         <p className={styles.valor}>{pedido.valor}</p>
-        <p className={styles.data}>Data: {pedido.data}</p>
+        <p className={styles.data}>Data: {dataExibida}</p>
       </div>
 
       {isExpanded && (
@@ -102,7 +105,7 @@ export default function Cards({ pedido, status }) {
             </div>
             <div className={styles.detail}>
               <strong>Data do Pedido:</strong>
-              <span>{pedido.data}</span>
+              <span>{dataExibida}</span>
             </div>
             <div className={styles.detail}>
               <strong>Status:</strong>
@@ -110,7 +113,7 @@ export default function Cards({ pedido, status }) {
             </div>
             <div className={styles.detail}>
               <strong>Observações:</strong>
-              <span>Pedido processado conforme solicitação</span>
+              <span>{observacoesExibidas}</span>
             </div>
           </div>
         </div>

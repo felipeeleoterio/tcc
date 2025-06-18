@@ -1,8 +1,10 @@
-"use client"
+// src/components/Pedidos.js
+"use client";
 
-import { useState, useEffect } from "react"
-import { Save, Edit, HardDrive, Plus, Minus } from "lucide-react"
-import styles from "../css/Pedidos.module.css"
+import { useState, useEffect } from "react";
+import { Save, Edit, Plus, Minus } from "lucide-react"; // Removido HardDrive, mantido o resto
+import styles from "../css/Pedidos.module.css";
+import ConfirmationModal from "./ConfirmationModal"; // Importe o componente do modal
 
 export default function Pedidos({ onPedidoCadastrado }) {
   const [formData, setFormData] = useState({
@@ -20,18 +22,20 @@ export default function Pedidos({ onPedidoCadastrado }) {
     bairro: "",
     cidade: "Vitória",
     estado: "ES",
-    produto: "",
-    unidadeMedida: "Unit",
-    quantidade: 1,
+    produto: "", // Campo para o produto selecionado no "adicionar item"
+    unidadeMedida: "Unit", // Unidade padrão
+    quantidade: 1, // Quantidade padrão
     valorFrete: "",
     dataPedido: "",
     horaPedido: "",
     statusPedido: "Pendente",
     observacoes: "",
-  })
+  });
 
-  const [itens, setItens] = useState([])
-  const [totalPedido, setTotalPedido] = useState(0)
+  const [itens, setItens] = useState([]);
+  const [totalPedido, setTotalPedido] = useState(0);
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false); // Novo estado para o modal
+  const [pedidoToConfirm, setPedidoToConfirm] = useState(null); // Estado para guardar os dados do pedido a ser confirmado
 
   // Lista de produtos com seus valores
   const produtos = [
@@ -41,124 +45,129 @@ export default function Pedidos({ onPedidoCadastrado }) {
     { nome: "Pastelzinho de carne", valorUnit: 0.25, valorKg: 25.0 },
     { nome: "Quibe", valorUnit: 0.3, valorKg: 30.0 },
     { nome: "Mini pizza", valorUnit: 0.3, valorKg: 30.0 },
-  ]
+  ];
 
-  const cidades = ["Cariacica", "Serra", "Vila Velha", "Vitória"]
-  const unidades = ["Unit", "Kg", "Lt"]
-  const descontos = ["0%", "2.5%", "5%", "7.5%", "10%"]
+  const cidades = ["Cariacica", "Serra", "Vila Velha", "Vitória"];
+  const unidades = ["Unit", "Kg", "Lt"];
+  const descontos = ["0%", "2.5%", "5%", "7.5%", "10%"];
 
   // Calcular o total do pedido quando os itens mudam
   useEffect(() => {
-    const novoTotal = itens.reduce((total, item) => total + item.valorTotal, 0)
-    setTotalPedido(novoTotal)
-  }, [itens])
+    const novoTotal = itens.reduce((total, item) => total + item.valorTotal, 0);
+    setTotalPedido(novoTotal);
+  }, [itens]);
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target
+    const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
       [name]: type === "checkbox" ? checked : value,
-    })
-  }
+    });
+  };
 
   const formatDocument = (value, type) => {
-    const numbers = value.replace(/\D/g, "")
+    const numbers = value.replace(/\D/g, "");
     if (type === "cpf") {
-      return numbers.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4")
+      // (Exemplo de formatação)
+      return numbers.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
     } else {
-      return numbers.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5")
+      // (Exemplo de formatação)
+      return numbers.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5");
     }
-  }
+  };
 
   const formatPhone = (value, type) => {
-    const numbers = value.replace(/\D/g, "")
+    const numbers = value.replace(/\D/g, "");
     if (type === "fixo") {
-      return numbers.replace(/(\d{2})(\d{4})(\d{4})/, "$1-$2-$3")
+      // (Exemplo de formatação)
+      return numbers.replace(/(\d{2})(\d{4})(\d{4})/, "$1-$2-$3");
     } else {
-      return numbers.replace(/(\d{2})(\d{5})(\d{4})/, "$1-$2-$3")
+      // (Exemplo de formatação)
+      return numbers.replace(/(\d{2})(\d{5})(\d{4})/, "$1-$2-$3");
     }
-  }
+  };
+
 
   // Função para adicionar item à tabela
   const adicionarItem = () => {
     // Verificar se um produto foi selecionado
     if (!formData.produto) {
-      alert("Por favor, selecione um produto")
-      return
+      alert("Por favor, selecione um produto");
+      return;
     }
 
     // Verificar se a quantidade é válida
     if (formData.quantidade <= 0) {
-      alert("A quantidade deve ser maior que zero")
-      return
+      alert("A quantidade deve ser maior que zero");
+      return;
     }
 
     // Encontrar o produto selecionado
-    const produtoSelecionado = produtos.find((p) => p.nome === formData.produto)
+    const produtoSelecionado = produtos.find((p) => p.nome === formData.produto);
 
     if (!produtoSelecionado) {
-      alert("Produto não encontrado")
-      return
+      alert("Produto não encontrado");
+      return;
     }
 
     // Determinar o valor unitário com base na unidade de medida
-    let valorUnitario = 0
+    let valorUnitario = 0;
     if (formData.unidadeMedida === "Unit") {
-      valorUnitario = produtoSelecionado.valorUnit
+      valorUnitario = produtoSelecionado.valorUnit;
     } else if (formData.unidadeMedida === "Kg") {
-      valorUnitario = produtoSelecionado.valorKg
+      valorUnitario = produtoSelecionado.valorKg;
     } else {
-      valorUnitario = produtoSelecionado.valorUnit // Padrão para outras unidades
+      valorUnitario = produtoSelecionado.valorUnit; // Padrão para outras unidades
     }
 
     // Calcular o valor total
-    const quantidade = Number.parseInt(formData.quantidade)
-    const valorTotal = valorUnitario * quantidade
+    const quantidade = Number.parseInt(formData.quantidade);
+    const valorTotal = valorUnitario * quantidade;
 
     // Criar o novo item
     const novoItem = {
-      id: Date.now(),
+      id: Date.now(), // ID único para o item na lista
       codigo: `COD${String(itens.length + 1).padStart(3, "0")}`,
       produto: formData.produto,
       unidadeMedida: formData.unidadeMedida,
       valorUnitario: valorUnitario,
       quantidade: quantidade,
-      desconto: "0%",
+      desconto: "0%", // Desconto inicial
       valorTotal: valorTotal,
-    }
+    };
 
     // Adicionar o novo item à lista
-    setItens((prevItens) => [...prevItens, novoItem])
+    setItens((prevItens) => [...prevItens, novoItem]);
 
-    // Limpar os campos do formulário
+    // Limpar os campos do formulário de item
     setFormData((prev) => ({
       ...prev,
       produto: "",
       quantidade: 1,
-    }))
-  }
+    }));
+  };
 
-  // Função para adicionar quantidade a um item existente
+  // Função para adicionar quantidade a um item existente (ou remover, se for 0)
   const adicionarQuantidade = (id) => {
     setItens((prevItens) =>
       prevItens.map((item) => {
         if (item.id === id) {
-          const novaQuantidade = item.quantidade + 1
+          const novaQuantidade = item.quantidade + 1;
           return {
             ...item,
             quantidade: novaQuantidade,
-            valorTotal: item.valorUnitario * novaQuantidade,
-          }
+            valorTotal: item.valorUnitario * novaQuantidade * (1 - (parseFloat(item.desconto) / 100)),
+          };
         }
-        return item
-      }),
-    )
-  }
+        return item;
+      })
+    );
+  };
 
   // Função para remover um item da tabela
   const removerItem = (id) => {
-    setItens((prevItens) => prevItens.filter((item) => item.id !== id))
-  }
+    setItens((prevItens) => prevItens.filter((item) => item.id !== id));
+  };
 
   // Função para aplicar desconto a um item
   const aplicarDesconto = (id, descontoStr) => {
@@ -166,109 +175,170 @@ export default function Pedidos({ onPedidoCadastrado }) {
       prevItens.map((item) => {
         if (item.id === id) {
           // Converter a string de desconto para número (ex: "5%" -> 0.05)
-          const descontoPercent = Number.parseFloat(descontoStr) / 100
-          const valorComDesconto = item.valorUnitario * item.quantidade * (1 - descontoPercent)
+          const descontoPercent = Number.parseFloat(descontoStr) / 100;
+          const valorComDesconto = item.valorUnitario * item.quantidade * (1 - descontoPercent);
 
           return {
             ...item,
             desconto: descontoStr,
             valorTotal: valorComDesconto,
-          }
+          };
         }
-        return item
+        return item;
       }),
-    )
-  }
+    );
+  };
 
   function formatarDataParaSalvar(data, hora) {
-  if (!data) return "";
-  const [ano, mes, dia] = data.split("-");
-  return `${dia}/${mes}/${ano} ${hora || "00:00"}`;
-}
-
-const handleSubmit = async (e) => {
-  e.preventDefault();
-
-const novoPedido = {
-  cliente: formData.nomeCompleto,
-  valor: totalPedido,
-  dataEntrega: formatarDataParaSalvar(formData.dataPedido, formData.horaPedido),
-  statusPedido: formData.statusPedido,
-  telefone: formData.telefone,
-};
-
-
-  console.log("Pedido a enviar:", novoPedido);
-
-  try {
-    const res = await fetch("http://localhost:3001/pedidos", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(novoPedido),
-    });
-
-    if (!res.ok) {
-      const errorText = await res.text();
-      console.error("Erro no fetch:", res.status, errorText);
-      throw new Error("Erro ao salvar o pedido");
-    }
-
-    const data = await res.json();
-    console.log("Resposta JSON:", data);
-
-    alert("Pedido cadastrado com sucesso! ID: " + data.id);
-
-    // 🔁 Atualiza a lista de pedidos na tela pai, se a função for fornecida
-    if (typeof onPedidoCriado === "function") {
-      onPedidoCriado();
-    }
-
-    // Limpa os dados do formulário
-    setFormData({
-      protocolo: `JA${Date.now()}-2024`,
-      tipoDocumento: "cpf",
-      documento: "",
-      nomeCompleto: "",
-      tipoTelefone: "movel",
-      telefone: "",
-      isWhatsApp: false,
-      email: "",
-      tipoLogradouro: "",
-      numero: "",
-      complemento: "",
-      bairro: "",
-      cidade: "Vitória",
-      estado: "ES",
-      produto: "",
-      unidadeMedida: "Unit",
-      quantidade: 1,
-      valorFrete: "",
-      dataPedido: "",
-      horaPedido: "",
-      statusPedido: "Pendente",
-      observacoes: "",
-    });
-
-    setItens([]);
-    setTotalPedido(0);
-  } catch (error) {
-    console.error("Erro ao salvar:", error);
-    alert(error.message);
+    if (!data) return "";
+    const [ano, mes, dia] = data.split("-");
+    return `${dia}/${mes}/${ano} ${hora || "00:00"}`;
   }
-};
 
+  // --- Funções para o modal de confirmação ---
 
+  // Esta função é chamada quando o botão "Cadastrar Pedido" é clicado
+  const handleOpenConfirmationModal = (e) => {
+    e.preventDefault(); // Evita o submit padrão do formulário
 
+    // Adicione validações básicas antes de abrir o modal
+    if (!formData.nomeCompleto || !formData.dataPedido || itens.length === 0) {
+      alert("Por favor, preencha o nome do cliente, a data do pedido e adicione pelo menos um item.");
+      return;
+    }
 
+    // Criar o objeto de pedido com os dados atuais do formulário
+    const pedidoGerado = {
+      cliente: formData.nomeCompleto,
+      protocolo: formData.protocolo,
+      valor: totalPedido.toFixed(2), // Formata para 2 casas decimais para exibição
+      dataPedido: formatarDataParaSalvar(formData.dataPedido, formData.horaPedido),
+      // Você pode definir dataEntrega de forma diferente, se houver um campo separado para isso
+      dataEntrega: formatarDataParaSalvar(formData.dataPedido, formData.horaPedido),
+      status: formData.statusPedido,
+      observacoes: formData.observacoes || "Nenhuma observação.",
+      itens: itens, // Passa a lista de itens para o modal
+      // Inclua outros dados do formulário que você queira exibir no modal
+      documento: formData.documento,
+      tipoDocumento: formData.tipoDocumento,
+      telefone: formData.telefone,
+      tipoTelefone: formData.tipoTelefone,
+      isWhatsApp: formData.isWhatsApp,
+      email: formData.email,
+      endereco: {
+        tipoLogradouro: formData.tipoLogradouro,
+        numero: formData.numero,
+        complemento: formData.complemento,
+        bairro: formData.bairro,
+        cidade: formData.cidade,
+        estado: formData.estado,
+      },
+      valorFrete: formData.valorFrete,
+    };
 
+    setPedidoToConfirm(pedidoGerado); // Salva o pedido para ser exibido no modal
+    setShowConfirmationModal(true); // Abre o modal
+  };
+
+  // Esta função é chamada quando o usuário CONFIRMA o pedido no modal
+  const handleConfirmSubmit = async () => {
+    setShowConfirmationModal(false); // Fecha o modal imediatamente
+    if (!pedidoToConfirm) return;
+
+    console.log("Confirmando pedido:", pedidoToConfirm);
+
+    try {
+      const res = await fetch("http://localhost:3001/pedidos", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        // Envia os dados do pedido. Ajuste conforme sua API espera.
+        body: JSON.stringify({
+          // Campos que sua API espera receber
+          cliente: pedidoToConfirm.cliente,
+          protocolo: pedidoToConfirm.protocolo,
+          valor: parseFloat(pedidoToConfirm.valor), // Converte de volta para número
+          dataPedido: pedidoToConfirm.dataPedido, // Data formatada
+          dataEntrega: pedidoToConfirm.dataEntrega, // Data formatada
+          statusPedido: pedidoToConfirm.status,
+          observacoes: pedidoToConfirm.observacoes,
+          itens: pedidoToConfirm.itens, // Inclui a lista de itens
+          documento: pedidoToConfirm.documento,
+          tipoDocumento: pedidoToConfirm.tipoDocumento,
+          telefone: pedidoToConfirm.telefone,
+          tipoTelefone: pedidoToConfirm.tipoTelefone,
+          isWhatsApp: pedidoToConfirm.isWhatsApp,
+          email: pedidoToConfirm.email,
+          endereco: pedidoToConfirm.endereco,
+          valorFrete: pedidoToConfirm.valorFrete,
+        }),
+      });
+
+      if (!res.ok) {
+        const errorText = await res.text();
+        console.error("Erro no fetch:", res.status, errorText);
+        throw new Error("Erro ao salvar o pedido: " + errorText);
+      }
+
+      const data = await res.json();
+      console.log("Resposta JSON:", data);
+
+      alert("Pedido cadastrado com sucesso! ID: " + data.id);
+
+      // 🔁 Atualiza a lista de pedidos na tela pai, se a função for fornecida
+      if (typeof onPedidoCadastrado === "function") {
+        onPedidoCadastrado();
+      }
+
+      // Limpa os dados do formulário APENAS APÓS a confirmação e sucesso do salvamento
+      setFormData({
+        protocolo: `JA${Date.now()}-2024`,
+        tipoDocumento: "cpf",
+        documento: "",
+        nomeCompleto: "",
+        tipoTelefone: "movel",
+        telefone: "",
+        isWhatsApp: false,
+        email: "",
+        tipoLogradouro: "",
+        numero: "",
+        complemento: "",
+        bairro: "",
+        cidade: "Vitória",
+        estado: "ES",
+        produto: "",
+        unidadeMedida: "Unit",
+        quantidade: 1,
+        valorFrete: "",
+        dataPedido: "",
+        horaPedido: "",
+        statusPedido: "Pendente",
+        observacoes: "",
+      });
+
+      setItens([]);
+      setTotalPedido(0);
+      setPedidoToConfirm(null); // Limpa o pedido a ser confirmado
+    } catch (error) {
+      console.error("Erro ao salvar:", error);
+      alert("Falha ao cadastrar pedido: " + error.message);
+    }
+  };
+
+  // Esta função é chamada quando o usuário CANCELA a ação no modal
+  const handleCancelSubmit = () => {
+    alert("Cadastro de pedido cancelado.");
+    setShowConfirmationModal(false); // Fecha o modal
+    setPedidoToConfirm(null); // Limpa o pedido a ser confirmado
+  };
 
   return (
     <div className={styles.pedidosContainer}>
-      <h1 className={styles.title}> Criar Pedido</h1>
+      <h1 className={styles.title}>Criar Pedido</h1>
 
-      <form onSubmit={handleSubmit} className={styles.form}>
+      {/* Altere o onSubmit para chamar a função que abre o modal */}
+      <form onSubmit={handleOpenConfirmationModal} className={styles.form}>
         {/* Dados do Cliente */}
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>1. Dados do Cliente</h2>
@@ -308,7 +378,7 @@ const novoPedido = {
                 type="text"
                 name="documento"
                 value={formData.documento}
-                onChange={handleChange}
+                onChange={(e) => setFormData(prev => ({ ...prev, documento: formatDocument(e.target.value, formData.tipoDocumento) }))}
                 className={styles.input}
                 placeholder={formData.tipoDocumento === "cpf" ? "000.000.000-00" : "00.000.000/0000-00"}
               />
@@ -322,6 +392,7 @@ const novoPedido = {
                 value={formData.nomeCompleto}
                 onChange={handleChange}
                 className={styles.input}
+                required // Torna este campo obrigatório para o cadastro
               />
             </div>
           </div>
@@ -356,7 +427,7 @@ const novoPedido = {
                 type="text"
                 name="telefone"
                 value={formData.telefone}
-                onChange={handleChange}
+                onChange={(e) => setFormData(prev => ({ ...prev, telefone: formatPhone(e.target.value, formData.tipoTelefone) }))}
                 className={styles.input}
                 placeholder={formData.tipoTelefone === "fixo" ? "00-0000-0000" : "00-00000-0000"}
               />
@@ -450,106 +521,105 @@ const novoPedido = {
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>2. Dados do Pedido</h2>
 
-<div className={styles.pedidoGrid}>
-  <div className={styles.inputGroup}>
-    <label className={styles.label}>Produto</label>
-    <select name="produto" value={formData.produto} onChange={handleChange} className={styles.select}>
-      <option value="">Selecione um produto</option>
-      {produtos.map((produto) => (
-        <option key={produto.nome} value={produto.nome}>
-          {produto.nome}
-        </option>
-      ))}
-    </select>
-  </div>
+          <div className={styles.pedidoGrid}>
+            <div className={styles.inputGroup}>
+              <label className={styles.label}>Produto</label>
+              <select name="produto" value={formData.produto} onChange={handleChange} className={styles.select}>
+                <option value="">Selecione um produto</option>
+                {produtos.map((produto) => (
+                  <option key={produto.nome} value={produto.nome}>
+                    {produto.nome}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-  <div className={styles.inputGroup}>
-    <label className={styles.label}>Unidade de Medida</label>
-    <select
-      name="unidadeMedida"
-      value={formData.unidadeMedida}
-      onChange={handleChange}
-      className={styles.select}
-    >
-      {unidades.map((unidade) => (
-        <option key={unidade} value={unidade}>
-          {unidade}
-        </option>
-      ))}
-    </select>
-  </div>
+            <div className={styles.inputGroup}>
+              <label className={styles.label}>Unidade de Medida</label>
+              <select
+                name="unidadeMedida"
+                value={formData.unidadeMedida}
+                onChange={handleChange}
+                className={styles.select}
+              >
+                {unidades.map((unidade) => (
+                  <option key={unidade} value={unidade}>
+                    {unidade}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-  <div className={styles.inputGroup}>
-    <label className={styles.label}>Quantidade</label>
-    <div className={styles.quantityGroup}>
-      <input
-        type="number"
-        name="quantidade"
-        value={formData.quantidade}
-        onChange={handleChange}
-        className={styles.input}
-        min="1"
-        style={{ width: "calc(100% - 36px)" }}
-      />
-      <button type="button" onClick={adicionarItem} className={styles.addButton}>
-        <Plus size={14} />
-      </button>
-    </div>
-  </div>
+            <div className={styles.inputGroup}>
+              <label className={styles.label}>Quantidade</label>
+              <div className={styles.quantityGroup}>
+                <input
+                  type="number"
+                  name="quantidade"
+                  value={formData.quantidade}
+                  onChange={handleChange}
+                  className={styles.input}
+                  min="1"
+                  // Removido style inline para usar a classe CSS
+                />
+                <button type="button" onClick={adicionarItem} className={styles.addButton}>
+                  <Plus size={14} />
+                </button>
+              </div>
+            </div>
 
-  <div className={styles.inputGroup}>
-    <label className={styles.label}>Valor do Frete</label>
-    <input
-      type="text"
-      name="valorFrete"
-      value={formData.valorFrete}
-      onChange={handleChange}
-      className={styles.input}
-      placeholder="R$ 0,00"
-    />
-  </div>
+            <div className={styles.inputGroup}>
+              <label className={styles.label}>Valor do Frete</label>
+              <input
+                type="text"
+                name="valorFrete"
+                value={formData.valorFrete}
+                onChange={handleChange}
+                className={styles.input}
+                placeholder="R$ 0,00"
+              />
+            </div>
 
-  <div className={styles.inputGroup}>
-    <label className={styles.label}>Data do Pedido</label>
-    <input
-      type="date"
-      name="dataPedido"
-      value={formData.dataPedido}
-      onChange={handleChange}
-      className={styles.input}
-    />
-  </div>
+            <div className={styles.inputGroup}>
+              <label className={styles.label}>Data do Pedido</label>
+              <input
+                type="date"
+                name="dataPedido"
+                value={formData.dataPedido}
+                onChange={handleChange}
+                className={styles.input}
+                required // Torna este campo obrigatório para o cadastro
+              />
+            </div>
 
-  <div className={styles.inputGroup}>
-    <label className={styles.label}>Hora do Pedido</label>
-    <input
-      type="time"
-      name="horaPedido"
-      value={formData.horaPedido}
-      onChange={handleChange}
-      className={styles.input}
-    />
-  </div>
+            <div className={styles.inputGroup}>
+              <label className={styles.label}>Hora do Pedido</label>
+              <input
+                type="time"
+                name="horaPedido"
+                value={formData.horaPedido}
+                onChange={handleChange}
+                className={styles.input}
+              />
+            </div>
 
-  <div className={styles.inputGroup}>
-    <label className={styles.label}>Status do Pedido</label>
-    <select
-      name="statusPedido"
-      value={formData.statusPedido}
-      onChange={handleChange}
-      className={styles.select}
-    >
-   <option value="TODOS">Todos</option>
-          <option value="Em Andamento">Em Andamento</option>
-          <option value="Finalizado">Finalizado</option>
-          <option value="Aguardando Pagamento">Aguardando Pagamento</option>
-          <option value="Agendado para Hoje">Agendado para Hoje</option>
-
-
-    </select>
-  </div>
-</div>
-
+            <div className={styles.inputGroup}>
+              <label className={styles.label}>Status do Pedido</label>
+              <select
+                name="statusPedido"
+                value={formData.statusPedido}
+                onChange={handleChange}
+                className={styles.select}
+              >
+                <option value="Pendente">Pendente</option> {/* Padrão inicial */}
+                <option value="Em Andamento">Em Andamento</option>
+                <option value="Finalizado">Finalizado</option>
+                <option value="Aguardando Pagamento">Aguardando Pagamento</option>
+                <option value="Agendado para Hoje">Agendado para Hoje</option>
+                <option value="Cancelado">Cancelado</option>
+              </select>
+            </div>
+          </div>
 
           <div className={styles.inputGroup}>
             <label className={styles.label}>Observações</label>
@@ -666,8 +736,17 @@ const novoPedido = {
           </div>
         </section>
       </form>
+
+      {/* O Modal de Confirmação - Renderizado condicionalmente */}
+      <ConfirmationModal
+        isOpen={showConfirmationModal}
+        onClose={handleCancelSubmit}
+        onConfirm={handleConfirmSubmit}
+        onCancel={handleCancelSubmit}
+        pedido={pedidoToConfirm} // Passa os dados do pedido para o modal, incluindo os itens
+        confirmButtonText="Confirmar e Cadastrar!"
+        cancelButtonText="Voltar e Revisar"
+      />
     </div>
-  )
+  );
 }
-
-

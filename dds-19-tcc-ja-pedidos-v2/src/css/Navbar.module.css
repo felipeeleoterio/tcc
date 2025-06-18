@@ -208,3 +208,7 @@
     width: 160px;
   }
 }
+/* Garante que submenus filtrados apareçam mesmo com o menu recolhido */
+.menuItem .submenuList {
+  display: block;
+}

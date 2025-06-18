@@ -325,6 +325,10 @@
     width: 160px;
   }
 }
+/* Garante que submenus filtrados apareçam mesmo com o menu recolhido */
+.Navbar_menuItem__Q60Cz .Navbar_submenuList__OgPkF {
+  display: block;
+}
 
 /*!********************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[7].use[3]!./src/css/Cards.module.css ***!
@@ -759,6 +763,10 @@
   }
 }
 
+/*!*****************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[7].use[3]!./src/css/RecuperarSenha.module.css ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************/
+
 /*!**********************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[7].use[3]!./src/css/Pedidos.module.css ***!
   \**********************************************************************************************************************************************************************************************************************************************************************/
@@ -1087,6 +1095,178 @@
     gap: 2px;
   }
 }
+
+/* ... (Mantenha todos os seus estilos de .pedidosContainer, .form, .table, etc. aqui) ... */
+
+/* -------------------------------------- */
+/* Estilos para o Popup de Confirmação - INÍCIO */
+/* -------------------------------------- */
+
+.Pedidos_popupOverlay__GrBBL {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Fundo escuro semi-transparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Garante que o pop-up fique acima de outros elementos */
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px); /* Efeito de desfoque opcional */
+}
+
+.Pedidos_confirmationModalContent__gNbTO {
+  background-color: var(--modal-background); /* Fundo branco, como seus cards */
+  padding: 25px 30px;
+  border-radius: 8px; /* Borda arredondada como seus cards */
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2); /* Sombra mais pronunciada */
+  width: 90%;
+  max-width: 500px; /* Largura mais adequada para exibir detalhes */
+  position: relative;
+  animation: Pedidos_fadeInScale__HmI7m 0.3s ease-out; /* Animação de entrada */
+  color: var(--modal-text-primary); /* Cor de texto principal */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centraliza conteúdo horizontalmente */
+  text-align: center; /* Centraliza texto */
+}
+
+.Pedidos_popupCloseButton__eZnQ7 {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--cinza-medio); /* Cor para o ícone de fechar */
+  transition: color 0.2s ease;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001; /* Garante que o botão esteja acima do conteúdo do modal */
+}
+
+.Pedidos_popupCloseButton__eZnQ7:hover {
+  color: var(--vermelho-perigo);
+}
+
+.Pedidos_confirmationModalTitle__AmIIG {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--azul-escuro); /* Cor do título, como seus cards */
+  margin-bottom: 15px;
+}
+
+.Pedidos_confirmationModalMessage__utL_Y {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  color: var(--cinza-escuro); /* Cor para o texto da mensagem */
+}
+
+.Pedidos_modalPedidoDetails__QeSIs {
+  /* Estilos para a seção de detalhes do pedido dentro do modal */
+  width: 100%; /* Ocupa a largura total do modal */
+  background-color: var(--cinza-claro); /* Um fundo leve para destacar os detalhes */
+  border-radius: 6px;
+  padding: 15px 20px;
+  margin-bottom: 25px;
+  text-align: left; /* Alinha o texto dos detalhes à esquerda */
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05); /* Sombra interna sutil */
+}
+
+/* As classes .detailsGrid, .detail, .detail strong, .detail span virão do Cards.module.css
+   quando o componente ConfirmationModal as importar. */
+
+
+.Pedidos_confirmationModalActions__Lj0Qv {
+  display: flex;
+  gap: 15px; /* Espaço entre os botões */
+  justify-content: center; /* Centraliza os botões */
+  width: 100%;
+  flex-wrap: wrap; /* Permite que os botões quebrem linha em telas pequenas */
+}
+
+.Pedidos_confirmationButton__Je0VX {
+  padding: 12px 28px; /* Padding maior para botões de ação */
+  border: none;
+  border-radius: 6px; /* Bordas um pouco mais arredondadas */
+  font-size: 1.05rem; /* Fonte ligeiramente maior */
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  flex-grow: 1; /* Permite que os botões cresçam para preencher o espaço */
+  max-width: 200px; /* Largura máxima para evitar botões muito largos */
+}
+
+.Pedidos_confirmationButton__Je0VX.Pedidos_confirm__x6YBt {
+  background-color: var(--modal-confirm-bg); /* Cor de sucesso */
+  color: var(--modal-button-text);
+}
+
+.Pedidos_confirmationButton__Je0VX.Pedidos_confirm__x6YBt:hover {
+  background-color: var(--modal-confirm-hover-bg);
+  transform: translateY(-2px);
+}
+
+.Pedidos_confirmationButton__Je0VX.Pedidos_cancel__WWUsy {
+  background-color: var(--modal-cancel-bg); /* Cor de perigo/cancelar */
+  color: var(--modal-button-text);
+}
+
+.Pedidos_confirmationButton__Je0VX.Pedidos_cancel__WWUsy:hover {
+  background-color: var(--modal-cancel-hover-bg);
+  transform: translateY(-2px);
+}
+
+/* Animação de entrada (se ainda não tiver no seu CSS) */
+@keyframes Pedidos_fadeInScale__HmI7m {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsividade para o modal de confirmação */
+@media (max-width: 600px) {
+  .Pedidos_confirmationModalContent__gNbTO {
+    padding: 20px 20px;
+    max-width: 95%;
+  }
+
+  .Pedidos_confirmationModalTitle__AmIIG {
+    font-size: 1.5rem;
+  }
+
+  .Pedidos_confirmationModalMessage__utL_Y {
+    font-size: 0.95rem;
+  }
+
+  .Pedidos_confirmationButton__Je0VX {
+    padding: 10px 20px;
+    font-size: 0.95rem;
+    max-width: 100%;
+  }
+
+  .Pedidos_confirmationModalActions__Lj0Qv {
+    flex-direction: column; /* Botões empilhados em telas pequenas */
+  }
+
+  .Pedidos_modalPedidoDetails__QeSIs {
+    padding: 15px;
+  }
+}
+
+/* -------------------------------------- */
+/* Estilos para o Popup de Confirmação - FIM */
+/* -------------------------------------- */
 
 /*!**************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[7].use[3]!./src/css/BuscaPedido.module.css ***!
