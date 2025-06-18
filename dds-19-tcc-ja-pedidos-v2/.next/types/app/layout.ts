@@ -1,4 +1,4 @@
-// File: C:\Users\f.silva\Documents\tcc\dds-19-tcc-ja-pedidos-v2\app\layout.jsx
+// File: C:\Users\felip\Documents\tcc\dds-19-tcc-ja-pedidos-v2\app\layout.jsx
 import * as entry from '../../../app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

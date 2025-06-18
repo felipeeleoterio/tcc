@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { Save, Edit, HardDrive, Plus, Minus } from "lucide-react"
 import styles from "../css/Pedidos.module.css"
 
-export default function Pedidos({ type }) {
+export default function Pedidos({ onPedidoCadastrado }) {
   const [formData, setFormData] = useState({
     protocolo: `JA${Date.now()}-2024`,
     tipoDocumento: "cpf",
@@ -180,11 +180,89 @@ export default function Pedidos({ type }) {
     )
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log("Pedido:", { formData, itens, totalPedido })
-    alert("Pedido cadastrado com sucesso!")
+  function formatarDataParaSalvar(data, hora) {
+  if (!data) return "";
+  const [ano, mes, dia] = data.split("-");
+  return `${dia}/${mes}/${ano} ${hora || "00:00"}`;
+}
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+const novoPedido = {
+  cliente: formData.nomeCompleto,
+  valor: totalPedido,
+  dataEntrega: formatarDataParaSalvar(formData.dataPedido, formData.horaPedido),
+  statusPedido: formData.statusPedido,
+  telefone: formData.telefone,
+};
+
+
+  console.log("Pedido a enviar:", novoPedido);
+
+  try {
+    const res = await fetch("http://localhost:3001/pedidos", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(novoPedido),
+    });
+
+    if (!res.ok) {
+      const errorText = await res.text();
+      console.error("Erro no fetch:", res.status, errorText);
+      throw new Error("Erro ao salvar o pedido");
+    }
+
+    const data = await res.json();
+    console.log("Resposta JSON:", data);
+
+    alert("Pedido cadastrado com sucesso! ID: " + data.id);
+
+    // 🔁 Atualiza a lista de pedidos na tela pai, se a função for fornecida
+    if (typeof onPedidoCriado === "function") {
+      onPedidoCriado();
+    }
+
+    // Limpa os dados do formulário
+    setFormData({
+      protocolo: `JA${Date.now()}-2024`,
+      tipoDocumento: "cpf",
+      documento: "",
+      nomeCompleto: "",
+      tipoTelefone: "movel",
+      telefone: "",
+      isWhatsApp: false,
+      email: "",
+      tipoLogradouro: "",
+      numero: "",
+      complemento: "",
+      bairro: "",
+      cidade: "Vitória",
+      estado: "ES",
+      produto: "",
+      unidadeMedida: "Unit",
+      quantidade: 1,
+      valorFrete: "",
+      dataPedido: "",
+      horaPedido: "",
+      statusPedido: "Pendente",
+      observacoes: "",
+    });
+
+    setItens([]);
+    setTotalPedido(0);
+  } catch (error) {
+    console.error("Erro ao salvar:", error);
+    alert(error.message);
   }
+};
+
+
+
+
+
 
   return (
     <div className={styles.pedidosContainer}>
@@ -461,11 +539,13 @@ export default function Pedidos({ type }) {
       onChange={handleChange}
       className={styles.select}
     >
-      <option value="Pendente">Pendente</option>
-      <option value="Confirmado">Confirmado</option>
-      <option value="Em produção">Em produção</option>
-      <option value="Entregue">Entregue</option>
-      <option value="Cancelado">Cancelado</option>
+   <option value="TODOS">Todos</option>
+          <option value="Em Andamento">Em Andamento</option>
+          <option value="Finalizado">Finalizado</option>
+          <option value="Aguardando Pagamento">Aguardando Pagamento</option>
+          <option value="Agendado para Hoje">Agendado para Hoje</option>
+
+
     </select>
   </div>
 </div>
@@ -589,3 +669,5 @@ export default function Pedidos({ type }) {
     </div>
   )
 }
+
+

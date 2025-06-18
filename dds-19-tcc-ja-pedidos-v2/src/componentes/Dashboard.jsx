@@ -1,95 +1,30 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Cards from "./Cards"
-import styles from "../css/Dashboard.module.css"
+import { useState, useEffect } from "react";
+import Cards from "./Cards";
+import styles from "../css/Dashboard.module.css";
 
 export default function Dashboard() {
-  const [pedidos] = useState({
-    agendados: [
-      {
-        id: "001",
-        cliente: "João Silva",
-        valor: "R$ 89,90",
-        data: "2024-01-15",
-        protocolo: "JA001-2024",
-      },
-      {
-        id: "002",
-        cliente: "Maria Santos",
-        valor: "R$ 156,50",
-        data: "2024-01-15",
-        protocolo: "JA002-2024",
-      },
-      {
-        id: "003",
-        cliente: "Pedro Costa",
-        valor: "R$ 234,00",
-        data: "2024-01-15",
-        protocolo: "JA003-2024",
-      },
-    ],
-    aguardandoPagamento: [
-      {
-        id: "007",
-        cliente: "Roberto Lima",
-        valor: "R$ 345,60",
-        data: "2024-01-13",
-        protocolo: "JA007-2024",
-      },
-      {
-        id: "008",
-        cliente: "Fernanda Rocha",
-        valor: "R$ 78,90",
-        data: "2024-01-13",
-        protocolo: "JA008-2024",
-      },
-      {
-        id: "009",
-        cliente: "Marcos Souza",
-        valor: "R$ 456,30",
-        data: "2024-01-12",
-        protocolo: "JA009-2024",
-      },
-      {
-        id: "010",
-        cliente: "Patricia Alves",
-        valor: "R$ 234,50",
-        data: "2024-01-12",
-        protocolo: "JA010-2024",
-      },
-      {
-        id: "011",
-        cliente: "Ricardo Gomes",
-        valor: "R$ 167,80",
-        data: "2024-01-11",
-        protocolo: "JA011-2024",
-      },
-    ],
-    emAndamento: [
-      {
-        id: "012",
-        cliente: "Sandra Martins",
-        valor: "R$ 89,40",
-        data: "2024-01-10",
-        protocolo: "JA012-2024",
-      },
-      {
-        id: "013",
-        cliente: "Eduardo Silva",
-        valor: "R$ 123,70",
-        data: "2024-01-10",
-        protocolo: "JA013-2024",
-      },
-      {
-        id: "014",
-        cliente: "Camila Santos",
-        valor: "R$ 67,20",
-        data: "2024-01-09",
-        protocolo: "JA014-2024",
-      },
-    ],
-  })
+  const [pedidos, setPedidos] = useState([]);
+
+  useEffect(() => {
+    // Puxa os pedidos do JSON Server
+    fetch("http://localhost:3001/pedidos")
+      .then((res) => res.json())
+      .then((data) => setPedidos(data))
+      .catch((err) => console.error("Erro ao buscar pedidos:", err));
+  }, []);
+
+  // Filtra os pedidos por status para exibir nas colunas
+  const agendadosHoje = pedidos.filter(
+    (pedido) => pedido.statusPedido === "Agendado para Hoje"
+  );
+  const aguardandoPagamento = pedidos.filter(
+    (pedido) => pedido.statusPedido === "Aguardando Pagamento"
+  );
+  const emAndamento = pedidos.filter(
+    (pedido) => pedido.statusPedido === "Em Andamento"
+  );
 
   return (
     <div className={styles.dashboard}>
@@ -99,30 +34,46 @@ export default function Dashboard() {
         <div className={styles.column}>
           <h2 className={styles.columnTitle}>Agendado para Hoje</h2>
           <div className={styles.cardsContainer}>
-            {pedidos.agendados.map((pedido) => (
-              <Cards key={pedido.id} pedido={pedido} status="agendado" />
-            ))}
+            {agendadosHoje.length > 0 ? (
+              agendadosHoje.map((pedido) => (
+                <Cards key={pedido.id} pedido={pedido} status="agendado" />
+              ))
+            ) : (
+              <p>Nenhum pedido agendado para hoje.</p>
+            )}
           </div>
         </div>
 
         <div className={styles.column}>
           <h2 className={styles.columnTitle}>Aguardando Pagamento</h2>
           <div className={styles.cardsContainer}>
-            {pedidos.aguardandoPagamento.map((pedido) => (
-              <Cards key={pedido.id} pedido={pedido} status="aguardandoPagamento" />
-            ))}
+            {aguardandoPagamento.length > 0 ? (
+              aguardandoPagamento.map((pedido) => (
+                <Cards
+                  key={pedido.id}
+                  pedido={pedido}
+                  status="aguardandoPagamento"
+                />
+              ))
+            ) : (
+              <p>Nenhum pedido aguardando pagamento.</p>
+            )}
           </div>
         </div>
 
         <div className={styles.column}>
           <h2 className={styles.columnTitle}>Em Andamento</h2>
           <div className={styles.cardsContainer}>
-            {pedidos.emAndamento.map((pedido) => (
-              <Cards key={pedido.id} pedido={pedido} status="andamento" />
-            ))}
+            {emAndamento.length > 0 ? (
+              emAndamento.map((pedido) => (
+                <Cards key={pedido.id} pedido={pedido} status="andamento" />
+              ))
+            ) : (
+              <p>Nenhum pedido em andamento.</p>
+            )}
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }

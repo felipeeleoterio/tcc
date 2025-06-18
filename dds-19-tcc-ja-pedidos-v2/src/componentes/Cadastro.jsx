@@ -22,9 +22,40 @@ export default function Cadastro({ onNavigate }) {
     })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log("Cadastro:", formData)
+
+    if (formData.senha !== formData.confirmarSenha) {
+      alert("As senhas não coincidem!")
+      return
+    }
+
+    try {
+      const response = await fetch("http://localhost:3001/usuarios", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nome: formData.nomeCompleto,
+          email: formData.email,
+          senha: formData.senha,
+          telefone: formData.telefone,
+          documento: formData.documento,
+          tipoDocumento: formData.tipoDocumento,
+        }),
+      })
+
+      if (response.ok) {
+        alert("Conta criada com sucesso!")
+        if (onNavigate) onNavigate("Login")
+      } else {
+        alert("Erro ao criar conta.")
+      }
+    } catch (error) {
+      console.error("Erro ao cadastrar:", error)
+      alert("Erro de conexão com o servidor.")
+    }
   }
 
   const handleLoginClick = (e) => {

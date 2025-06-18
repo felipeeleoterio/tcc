@@ -1,40 +1,67 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { ShoppingCart } from "lucide-react"
-import styles from "../css/Login.module.css"
+import { useState } from "react";
+import { ShoppingCart } from "lucide-react";
+import styles from "../css/Login.module.css";
 
-export default function Login({ onNavigate }) {
+export default function Login({ onNavigate, onLoginSuccess }) {
   const [formData, setFormData] = useState({
     email: "",
     senha: "",
-  })
+  });
+
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
-    })
-  }
+    });
+  };
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log("Login:", formData)
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setErrorMessage("");
+
+    try {
+      const res = await fetch(
+        `http://localhost:3001/usuarios?email=${encodeURIComponent(
+          formData.email
+        )}&senha=${encodeURIComponent(formData.senha)}`
+      );
+
+      if (!res.ok) {
+        setErrorMessage("Erro ao conectar com o servidor.");
+        return;
+      }
+
+      const users = await res.json();
+
+      if (users.length > 0) {
+        if (onLoginSuccess) onLoginSuccess();
+        if (onNavigate) onNavigate("Dashboard");
+      } else {
+        setErrorMessage("E-mail ou senha incorretos.");
+      }
+    } catch (error) {
+      console.error("Erro no login:", error);
+      setErrorMessage("Erro ao conectar com o servidor.");
+    }
+  };
 
   const handleCadastroClick = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (onNavigate) {
-      onNavigate("Cadastro")
+      onNavigate("Cadastro");
     }
-  }
+  };
 
   const handleEsqueceuSenhaClick = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (onNavigate) {
-      onNavigate("Error")
+      onNavigate("Error");
     }
-  }
+  };
 
   return (
     <div className={styles.loginContainer}>
@@ -57,6 +84,7 @@ export default function Login({ onNavigate }) {
               onChange={handleChange}
               className={styles.input}
               required
+              autoComplete="username"
             />
           </div>
 
@@ -72,8 +100,13 @@ export default function Login({ onNavigate }) {
               onChange={handleChange}
               className={styles.input}
               required
+              autoComplete="current-password"
             />
           </div>
+
+          {errorMessage && (
+            <p style={{ color: "red", marginBottom: "10px" }}>{errorMessage}</p>
+          )}
 
           <button type="submit" className={styles.submitButton}>
             Entrar
@@ -90,5 +123,5 @@ export default function Login({ onNavigate }) {
         </form>
       </div>
     </div>
-  )
+  );
 }

@@ -1,0 +1,123 @@
+{
+  "usuarios": [
+    {
+      "id": "1",
+      "email": "admin@exemplo.com",
+      "senha": "123"
+    },
+    {
+      "id": "b809",
+      "nome": "neymar jr",
+      "email": "neymar@gmail.com",
+      "senha": "123",
+      "telefone": "21231312312",
+      "documento": "1234567890",
+      "tipoDocumento": "cpf"
+    },
+    {
+      "id": "b479",
+      "nome": "neymar jr",
+      "email": "neymar10@gmail.com",
+      "senha": "123",
+      "telefone": "21231312312",
+      "documento": "1234567890",
+      "tipoDocumento": "cpf"
+    },
+    {
+      "id": "1043",
+      "nome": "Cristiano",
+      "email": "cr7@gmail.com",
+      "senha": "777",
+      "telefone": "21231312312",
+      "documento": "1234567890",
+      "tipoDocumento": "cpf"
+    }
+  ],
+  "pedidos": [
+    {
+      "id": "1",
+      "cliente": "Felipe",
+      "valor": 150,
+      "dataEntrega": "2025-06-20"
+    },
+    {
+      "id": "a180",
+      "cliente": "neymar jr",
+      "valor": 0.25,
+      "dataEntrega": "2025-06-10",
+      "statusPedido": "Agendado para Hoje"
+    },
+    {
+      "id": "9f5f",
+      "cliente": "sdasdasd",
+      "valor": 0.25,
+      "dataEntrega": "10/06/2025 05:19",
+      "statusPedido": "EM ANDAMENTO",
+      "telefone": "21231312312"
+    },
+    {
+      "id": "cbf2",
+      "cliente": "sdasdasd",
+      "valor": 0.25,
+      "dataEntrega": "10/06/2025 06:20",
+      "statusPedido": "HOJE",
+      "telefone": "21231312312"
+    },
+    {
+      "id": "fcef",
+      "cliente": "",
+      "valor": 25,
+      "dataEntrega": "",
+      "statusPedido": "AGUARDANDO PAGAMENTO",
+      "telefone": ""
+    },
+    {
+      "id": "ef3b",
+      "cliente": "Cristiano",
+      "valor": 0.25,
+      "dataEntrega": "02/06/2025 05:24",
+      "statusPedido": "Aguardando Pagamento",
+      "telefone": "21231312312"
+    },
+    {
+      "id": "243b",
+      "cliente": "messi",
+      "valor": 0.25,
+      "dataEntrega": "02/06/2025 06:45",
+      "statusPedido": "Pendente",
+      "telefone": "21231312312"
+    },
+    {
+      "id": "948a",
+      "cliente": "arias",
+      "valor": 0.25,
+      "dataEntrega": "02/06/2025 05:45",
+      "statusPedido": "Agendado para Hoje",
+      "telefone": "21231312312"
+    },
+    {
+      "id": "3e6a",
+      "cliente": "german",
+      "valor": 0.25,
+      "dataEntrega": "02/06/2025 06:56",
+      "statusPedido": "Agendado para Hoje",
+      "telefone": "21231312312"
+    },
+    {
+      "id": "d6a4",
+      "cliente": "pato",
+      "valor": 0.25,
+      "dataEntrega": "02/06/2025 10:09",
+      "statusPedido": "Finalizado",
+      "telefone": "21231312312"
+    },
+    {
+      "id": "0089",
+      "cliente": "pato",
+      "valor": 0.25,
+      "dataEntrega": "02/06/2025 08:08",
+      "statusPedido": "Em Andamento",
+      "telefone": "21231312312"
+    }
+  ]
+}
